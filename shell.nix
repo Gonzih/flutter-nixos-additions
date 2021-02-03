@@ -1,18 +1,14 @@
-let
-   pkgs = import <nixpkgs> {};
-in pkgs.stdenv.mkDerivation rec {
-  name = "flutter-development-app";
-  buildInputs = with pkgs; [
+{ pkgs ? import <nixpkgs> {} }:
+
+(pkgs.buildFHSUserEnv {
+  name = "flutter-fhs-env";
+  targetPkgs = pkgs: (with pkgs; [
     gnumake
     bash
     git
-    flutter
-    dart
-  ];
-  NIXPKGS_ALLOW_UNFREE = true;
-  APP_ENV = "development";
-  DART_SDK = "${pkgs.dart}";
-  shellHook = ''
-    export PATH="$PATH":"$HOME/.pub-cache/bin"
+  ]);
+  profile = ''
+    export PATH="$PATH":"$HOME/.pub-cache/bin":"$HOME/opt/flutter/bin"
   '';
-}
+  runScript = "bash";
+}).env
