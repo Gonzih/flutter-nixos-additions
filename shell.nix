@@ -13,7 +13,6 @@
   targetPkgs = pkgs: (with pkgs; [
     bash
     curl
-    dart
     git
     unzip
     which
@@ -47,7 +46,7 @@
   profile = ''
     export FLUTTER_SDK="$HOME/opt/flutter"
     export DART_SDK="$FLUTTER_SDK/bin/cache/dart-sdk"
-    export PATH="$PATH":"$FLUTTER_SDK/bin"
+    export PATH="$PATH":"$DART_SDK/bin":"$FLUTTER_SDK/bin"
   '';
   runScript = "bash";
 }).env
